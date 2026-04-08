@@ -15,9 +15,13 @@ Use this skill when the user asks to create, design, or add a single training se
 
 ## Before Building Any Workout
 
+**REQUIRED — do this before constructing any workout:**
+
 ```
 Call user-profile → get disciplineSpeeds and timezone
 ```
+
+Use the returned `timezone` to build all `scheduled_at` values as full ISO 8601 datetimes with the correct UTC offset (e.g. `"2025-06-10T09:00:00+02:00"`). Never pass a date-only string.
 
 Use `disciplineSpeeds` to estimate dive/swim duration: `time = distance / speed` (pool) or `time = 2 × depth / speed` (depth). Verify rest intervals are safe before creating.
 
@@ -35,7 +39,7 @@ Default speeds when no custom values exist:
 
 ```
 Workout
-├── scheduled_at       (ISO 8601 date)
+├── scheduled_at       (ISO 8601 datetime — include time + UTC offset, e.g. "2025-06-10T09:00:00+02:00")
 ├── workout_type       (pool-training | depth-training | stretching | strength | other | sauna)
 ├── name               (short descriptive title)
 └── drills[]           (omit for supporting sessions)
@@ -150,11 +154,13 @@ Drill: "Hangs"
 
 ### Supporting sessions (no drills needed)
 
+Use the `timezone` from `user-profile` to set the correct UTC offset in `scheduled_at`.
+
 ```json
-{ "scheduled_at": "2025-06-10", "workout_type": "strength",   "name": "Lower body + core" }
-{ "scheduled_at": "2025-06-11", "workout_type": "stretching", "name": "Diaphragm + hip mobility" }
-{ "scheduled_at": "2025-06-14", "workout_type": "sauna",      "name": "Sauna — 3 × 12 min" }
-{ "scheduled_at": "2025-06-12", "workout_type": "other",      "name": "Active recovery — breathing exercises" }
+{ "scheduled_at": "2025-06-10T09:00:00+02:00", "workout_type": "strength",   "name": "Lower body + core" }
+{ "scheduled_at": "2025-06-11T09:00:00+02:00", "workout_type": "stretching", "name": "Diaphragm + hip mobility" }
+{ "scheduled_at": "2025-06-14T09:00:00+02:00", "workout_type": "sauna",      "name": "Sauna — 3 × 12 min" }
+{ "scheduled_at": "2025-06-12T09:00:00+02:00", "workout_type": "other",      "name": "Active recovery — breathing exercises" }
 ```
 
 ## Common Mistakes to Avoid
