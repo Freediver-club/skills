@@ -18,10 +18,14 @@ Use this skill when the user asks to review recent training, assess progress, ch
 
 ### 1. Pull recent data
 
+**REQUIRED — call user-profile first:**
+
 ```
 Call user-profile → confirm timezone and pace speeds are current
 Call getWorkouts(start, end) → last 2–4 weeks (max 90-day range per call)
 ```
+
+Use the returned `timezone` to build `start` and `end` as full ISO 8601 datetimes with the correct UTC offset (e.g. `"2025-05-01T00:00:00+02:00"`). Never pass a date-only string.
 
 Look for:
 - Sessions completed vs. planned
@@ -66,6 +70,8 @@ Call getTrainingCenters → list centers and consenting athletes
 ```
 Call getAthleteWorkouts(trainingCenterUuid, connectionId, start, end)
 ```
+
+Build `start` and `end` using the athlete's timezone from `user-profile` — full ISO 8601 datetimes with UTC offset. Never pass date-only strings.
 
 Review the same signals as the athlete workflow above, but for each athlete independently.
 

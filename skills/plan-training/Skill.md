@@ -17,10 +17,14 @@ Use this skill when the user asks to create a training plan, design a program, o
 
 ### 1. Gather context
 
+**REQUIRED — call user-profile before any other tool:**
+
 ```
 Call user-profile → get disciplineSpeeds and timezone
 Call getWorkouts (last 4–8 weeks) → understand current load, frequency, progression
 ```
+
+Use the returned `timezone` to construct all date range arguments and `scheduled_at` values as full ISO 8601 datetimes with the correct UTC offset (e.g. `"2025-06-10T09:00:00+02:00"`). Never pass a date-only string.
 
 Ask the athlete (or infer from history):
 - Current level (beginner / intermediate / advanced)
@@ -68,7 +72,7 @@ Create each workout with `createWorkout`, starting from the nearest week.
 - Use descriptive `name` values (e.g. "Pool — CO2 table + technique", "Depth — progressive CWT")
 - Structure: warm-up drill → main set drill(s) → cool-down drill
 - Cross-check estimated session duration against available time using `disciplineSpeeds`
-- Supporting sessions (strength, stretching, sauna, other) need no drills — just `scheduled_at`, `workout_type`, and `name`
+- Supporting sessions (strength, stretching, sauna, other) need no drills — just `scheduled_at` (ISO 8601 datetime with time + UTC offset), `workout_type`, and `name`
 
 ### 5. Competition taper (if applicable)
 
