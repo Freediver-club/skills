@@ -1,5 +1,5 @@
 ---
-name: Plan Training
+name: plan-training
 description: Create a periodized multi-week freediving training plan for an athlete using the freediver.club MCP tools. Covers macrocycle design, weekly templates, and workout creation.
 ---
 

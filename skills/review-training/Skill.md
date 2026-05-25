@@ -1,5 +1,5 @@
 ---
-name: Review Training
+name: review-training
 description: Review an athlete's recent training history, assess load and progression, and adjust upcoming workouts using the freediver.club MCP tools. Supports both athlete and coach views.
 ---
 

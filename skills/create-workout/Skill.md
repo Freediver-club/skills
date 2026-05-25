@@ -1,5 +1,5 @@
 ---
-name: Create Workout
+name: create-workout
 description: Design and create a single freediving training session using the freediver.club MCP tools. Covers pool, depth, and supporting workout types with correct drill/element structure.
 ---
 
